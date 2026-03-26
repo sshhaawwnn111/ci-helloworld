@@ -48,22 +48,20 @@ public class ArrayUtilsTest {
     }
 
 
+    
+
     @Test
     public void testCountOfEmptyArray() {
-        // Covers the branch where the array is empty and the for-loop never executes.
         assertEquals(0, ArrayUtils.countOf(new int[]{}, 5));
     }
 
     @Test
     public void testCountOfTargetFound() {
-        // Covers the true branch of the ternary operator (a == target).
-        // It also covers the false branch because '2' does not equal '5'.
         assertEquals(2, ArrayUtils.countOf(new int[]{5, 2, 5}, 5));
     }
 
     @Test
     public void testCountOfTargetNotFound() {
-        // Covers the false branch of the ternary operator exclusively.
         assertEquals(0, ArrayUtils.countOf(new int[]{1, 2, 3}, 5));
     }
 }
