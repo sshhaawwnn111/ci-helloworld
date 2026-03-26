@@ -30,7 +30,9 @@ jar {
 jacocoTestReport {
     dependsOn test
     reports {
-        csv.required = true
+        xml.required = true
+        csv.required = true // The GitHub Action needs this!
+        html.required = true
     }
 }
 
