@@ -1,17 +1,15 @@
 # For Java 11, try this
-FROM adoptopenjdk/openjdk11:latest AS build
-ARG JAR_FILE=workspace/build/libs/ci-helloworld-1.0-SNAPSHOT.jar
+FROM eclipse-temurin:21-jdk AS build
 RUN mkdir -p /workspace
-COPY build.gradle /workspace
-COPY gradlew /workspace
-COPY settings.gradle /workspace
-COPY gradle /workspace/gradle
-COPY src /workspace/src
 WORKDIR /workspace
+COPY gradlew .
+COPY settings.gradle .
+COPY gradle gradle
+COPY app app
 RUN chmod a+x gradlew
 RUN ./gradlew build
 
-FROM adoptopenjdk/openjdk11:latest
-COPY --from=build ${JAR_FILE} app.jar
+FROM eclipse-temurin:21-jre
+COPY --from=build /workspace/app/build/libs/*.jar app.jar
 EXPOSE 6379
 ENTRYPOINT ["java","-jar","app.jar"]
